@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -25,6 +26,19 @@ const winningCombinations = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+
+const playerDetails = {
+  X: {
+    name: "Rabbit",
+    image: "/images/rabbity.png",
+    color: "text-blue-400",
+  },
+  O: {
+    name: "Fox",
+    image: "/images/foxxy.png",
+    color: "text-pink-400",
+  },
+};
 
 export default function Home() {
   const [board, setBoard] = useState<Square[]>(
@@ -114,7 +128,7 @@ export default function Home() {
           </p>
 
           <CardTitle className="text-4xl font-extrabold tracking-wider">
-            Tic-Tac-Toe
+            Junix Tic-Tac-Toe
           </CardTitle>
 
           <CardDescription className="text-slate-400">
@@ -130,7 +144,7 @@ export default function Home() {
 
             <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-3 text-center">
               <p className="text-sm font-semibold text-blue-400">
-                Player X
+                Rabbit
               </p>
               <p className="mt-1 text-3xl font-bold">
                 {scores.X}
@@ -148,7 +162,7 @@ export default function Home() {
 
             <div className="rounded-xl border border-pink-500/30 bg-pink-500/10 p-3 text-center">
               <p className="text-sm font-semibold text-pink-400">
-                Player O
+                Fox
               </p>
               <p className="mt-1 text-3xl font-bold">
                 {scores.O}
@@ -162,7 +176,7 @@ export default function Home() {
 
             {winner === "X" || winner === "O" ? (
               <p className="text-lg font-bold text-green-400">
-                Player {winner} wins!
+                {playerDetails[winner].name} wins!
               </p>
             ) : winner === "Draw" ? (
               <p className="text-lg font-bold text-yellow-400">
@@ -171,14 +185,8 @@ export default function Home() {
             ) : (
               <p className="text-lg font-medium text-slate-300">
                 Current Turn:{" "}
-                <span
-                  className={
-                    currentPlayer === "X"
-                      ? "font-bold text-blue-400"
-                      : "font-bold text-pink-400"
-                  }
-                >
-                  Player {currentPlayer}
+                <span className={`font-bold ${playerDetails[currentPlayer].color}`}>
+                  {playerDetails[currentPlayer].name}
                 </span>
               </p>
             )}
@@ -195,10 +203,12 @@ export default function Home() {
                 type="button"
                 onClick={() => handleClick(index)}
                 disabled={square !== null || winner !== null}
-                aria-label={`Square ${index + 1}: ${square ?? "empty"}`}
+                aria-label={`Square ${index + 1}: ${
+                  square ? playerDetails[square].name : "empty"
+                }`}
                 className={`
                   flex aspect-square items-center justify-center
-                  rounded-xl border-2 text-5xl font-extrabold
+                  rounded-xl border-2
                   transition-all duration-200
                   ${
                     winningLine.includes(index)
@@ -214,17 +224,16 @@ export default function Home() {
                 `}
               >
 
-                <span
-                  className={
-                    square === "X"
-                      ? "text-blue-400"
-                      : square === "O"
-                        ? "text-pink-400"
-                        : ""
-                  }
-                >
-                  {square}
-                </span>
+                {square && (
+                  <Image
+                    src={playerDetails[square].image}
+                    alt={playerDetails[square].name}
+                    width={80}
+                    height={80}
+                    unoptimized
+                    className="h-16 w-16 object-contain sm:h-30 sm:w-30"
+                  />
+                )}
 
               </button>
 
