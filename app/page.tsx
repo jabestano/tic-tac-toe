@@ -30,12 +30,12 @@
   const playerDetails = {
     X: {
       name: "Rabbit",
-      image: "/images/rabbity.png",
+      image: "/images/rabbit120.gif",
       color: "text-blue-400",
     },
     O: {
       name: "Fox",
-      image: "/images/foxxy.png",
+      image: "/images/foxxy120.gif",
       color: "text-pink-400",
     },
   };
