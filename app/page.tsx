@@ -262,7 +262,7 @@
             </div>
 
             <p className="text-center text-xs text-slate-500">
-              Built with React 19, Next.js, Tailwind CSS 4 and shadcn/ui
+              🐕Baglis & 🐈Yumi
             </p>
 
           </CardContent>
